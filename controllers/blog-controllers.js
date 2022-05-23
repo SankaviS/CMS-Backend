@@ -1,10 +1,11 @@
+import mongoose from "mongoose";
 import blog from "../models/blog";
 import Blog from "../models/blog";
 import User from "../models/user";
 export const getAllBlog = async (req, res, next) => {
   let blog;
   try {
-    blog = await Blog.find();
+    blog = await Blog.find().populate("user");
   } catch (err) {
     console.log(err);
   }
@@ -17,7 +18,7 @@ export const addBlog = async (req, res, next) => {
   const { title, description, image, user } = req.body;
   let existing;
   try {
-    existing = await User.findbyID(user);
+    existing = await User.findById(user);
   } catch (e) {
     console.log(e);
   }
@@ -26,11 +27,12 @@ export const addBlog = async (req, res, next) => {
   }
   const blog = new Blog({ title, description, image, user });
   try {
-    const session = await models.startSession();
+    const session = await mongoose.startSession();
     session.startTransaction();
     await blog.save({ session });
     existing.blog.push(blog);
-    await existing.user.save({ session });
+    await existing.save({ session });
+
     await session.commitTransaction();
   } catch (err) {
     console.log(err);
@@ -84,12 +86,12 @@ export const getbyUserid = async (req, res, next) => {
   const blogid = req.params.id;
   let userblog;
   try {
-    userblog = await User.findById(blogid).populate("blog");
+    userblog = await User.findById(blogid);
   } catch (err) {
     console.log(err);
   }
   if (!userblog) {
     return res.status(404).json({ message: "No blog found" });
   }
-  return res.status(200).json({ blog: userblog });
+  return res.status(200).json({ user: userblog });
 };

@@ -8,10 +8,10 @@ import {
   getbyUserid,
 } from "./../controllers/blog-controllers";
 const blogRouter = express.Router();
-blogRouter.get("/", getAllBlog);
+blogRouter.get("/user/:id", getbyUserid);
 blogRouter.post("/add", addBlog);
 blogRouter.put("/update/:id", updateBlog);
 blogRouter.get("/:id", getidBlog);
 blogRouter.delete("/:id", deleteidBlog);
-blogRouter.get("/user/:id", getbyUserid);
+blogRouter.get("/", getAllBlog);
 export default blogRouter;
