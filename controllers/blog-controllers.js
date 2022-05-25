@@ -65,7 +65,7 @@ export const updateBlog = async (req, res, next) => {
   return res.status(200).json({ blog });
 };
 
-v;
+//Function for getting blog by user id
 
 export const getidBlog = async (req, res, next) => {
   const blogid = req.params.id;
