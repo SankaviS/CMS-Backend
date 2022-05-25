@@ -2,6 +2,9 @@ import mongoose from "mongoose";
 import blog from "../models/blog";
 import Blog from "../models/blog";
 import User from "../models/user";
+
+//Function for getting all the blog posted by the user
+
 export const getAllBlog = async (req, res, next) => {
   let blog;
   try {
@@ -14,6 +17,9 @@ export const getAllBlog = async (req, res, next) => {
   }
   return res.status(200).json({ blog });
 };
+
+//Function for posting a new blog
+
 export const addBlog = async (req, res, next) => {
   const { title, description, image, user } = req.body;
   let existing;
@@ -25,6 +31,7 @@ export const addBlog = async (req, res, next) => {
   if (!existing) {
     return res.status(404).json({ message: "Unable to find user by this ID." });
   }
+
   const blog = new Blog({ title, description, image, user });
   try {
     const session = await mongoose.startSession();
@@ -40,6 +47,9 @@ export const addBlog = async (req, res, next) => {
   }
   return res.status(200).json({ blog });
 };
+
+//Function for updating the existing blog
+
 export const updateBlog = async (req, res, next) => {
   const { title, description } = req.body;
   const blogid = req.params.id;
@@ -54,6 +64,9 @@ export const updateBlog = async (req, res, next) => {
   }
   return res.status(200).json({ blog });
 };
+
+v;
+
 export const getidBlog = async (req, res, next) => {
   const blogid = req.params.id;
   let blog1;
@@ -67,6 +80,9 @@ export const getidBlog = async (req, res, next) => {
   }
   return res.status(200).json({ blog1 });
 };
+
+//Function for deleting blog of a particular user
+
 export const deleteidBlog = async (req, res, next) => {
   const blogid = req.params.id;
   let blog1;
@@ -81,6 +97,8 @@ export const deleteidBlog = async (req, res, next) => {
   }
   return res.status(200).json({ blog1 });
 };
+
+//Function for getting all the blog posted by the user
 
 export const getbyUserid = async (req, res, next) => {
   const blogid = req.params.id;

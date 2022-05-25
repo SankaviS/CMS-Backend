@@ -7,6 +7,9 @@ import {
   deleteidBlog,
   getbyUserid,
 } from "./../controllers/blog-controllers";
+
+//Defining routes for each type of function
+
 const blogRouter = express.Router();
 blogRouter.get("/user/:id", getbyUserid);
 blogRouter.post("/add", addBlog);

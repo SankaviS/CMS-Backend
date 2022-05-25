@@ -1,5 +1,8 @@
 import User from "../models/user";
 import bcrypt from "bcryptjs/dist/bcrypt";
+
+//Function for getting all the users
+
 export const getAllUsers = async (req, res, next) => {
   let users;
   try {
@@ -12,6 +15,8 @@ export const getAllUsers = async (req, res, next) => {
   }
   return res.status(200).json({ users });
 };
+
+//Function for posting data of new user
 
 export const signUp = async (req, res, next) => {
   const { name, email, password } = req.body;
@@ -33,6 +38,8 @@ export const signUp = async (req, res, next) => {
   }
   return res.status(201).json({ user });
 };
+
+//Function for checking login data
 
 export const login = async (req, res, next) => {
   const { email, password } = req.body;

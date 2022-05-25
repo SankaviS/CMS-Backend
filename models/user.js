@@ -1,6 +1,8 @@
 import mongoose from "mongoose";
-
 const Schema = mongoose.Schema;
+
+//Defining model for user login and signin using schema
+
 const userschema = new Schema({
   name: {
     type: "string",
